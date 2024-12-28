@@ -1,0 +1,100 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="SewaLapanganKu - Mudah dan Cepat dalam Memesan Lapangan Olahraga Favorit Anda.">
+  <meta name="keywords" content="sewa lapangan, mini soccer, futsal, basket, tenis, badminton">
+  <meta name="author" content="AWP & YAP">
+  <title>Padang Sport Center - Sewa Lapangan</title>
+  <link rel="icon" href="/img/logo.jpg">
+  <link rel="stylesheet" href="/css/style.css">
+  <script>
+    function hitungHarga() {
+      const tipeLapangan = document.getElementById('tipeLapangan').value;
+      const jumlahJam = parseInt(document.getElementById('jumlahJam').value) || 0;
+      let hargaPerJam = 0;
+
+      switch (tipeLapangan) {
+        case 'Mini Soccer': hargaPerJam = 1200000; break;
+        case 'Futsal': hargaPerJam = 200000; break;
+        case 'Basket': hargaPerJam = 500000; break;
+        case 'Tenis': hargaPerJam = 800000; break;
+        case 'Badminton': hargaPerJam = 90000; break;
+        default: hargaPerJam = 0; break;
+      }
+
+      const totalHarga = hargaPerJam * jumlahJam;
+      document.getElementById('harga').value = totalHarga.toLocaleString('id-ID', {
+        style: 'currency',
+        currency: 'IDR'
+      });
+    }
+  </script>
+</head>
+<body>
+  <header>
+    <div class="logo">
+      <h1>Padang Sport Center</h1>
+    </div>
+    <nav>
+      <ul>
+        <li><a href="/">Beranda</a></li>
+        <li class="active"><a href="/sewalapangan">Sewa Lapangan</a></li>
+        <li><a href="/akun">Detail Akun</a></li>
+      </ul>
+    </nav>
+  </header>
+  <main>
+    <section class="sewa-lapangan-form">
+      <h2>Form Pemesanan Lapangan</h2>
+      <form action="/lapangan" method="POST" onsubmit="console.log(new FormData(this));">
+        <div class="form-group">
+          <label for="namapengguna">Nama :</label>
+          <input type="text" id="namapengguna" name="namapengguna" placeholder="Atas Nama Siapa?" required>
+        </div>
+        <div class="form-group">
+          <label for="email">Email </label>
+          <input type="email" id="email" name="email" placeholder="Masukkan email Anda" required>
+        </div>        
+        <div class="form-group">
+          <label for="tanggal">Tanggal:</label>
+          <input type="date" id="tanggal" name="tanggal" required>
+        </div>
+        <div class="form-group">
+          <label for="waktu">Waktu:</label>
+          <input type="time" id="waktu" name="waktu" required>
+        </div>
+        <div class="form-group">
+          <label for="jumlahJam">Jumlah Jam:</label>
+          <input type="number" id="jumlahJam" name="jumlahJam" min="1" value="1" required onchange="hitungHarga()" oninput="this.value = Math.abs(this.value)">
+        </div>
+        <div class="form-group">
+          <label for="tipeLapangan">Tipe Lapangan:</label>
+          <select id="tipeLapangan" name="tipeLapangan" required onchange="hitungHarga()">
+            <option value="Mini Soccer">Lapangan Mini Soccer</option>
+            <option value="Futsal">Lapangan Futsal</option>
+            <option value="Basket">Lapangan Basket</option>
+            <option value="Tenis">Lapangan Tenis</option>
+            <option value="Badminton">Lapangan Badminton</option>
+          </select>
+        </div>
+        <div class="form-group">
+          <label for="catatan">Catatan:</label>
+          <textarea id="catatan" name="catatan" rows="4" placeholder="Apakah ada catatan untuk lapangan yang Anda pesan?"></textarea>
+        </div>
+        <div class="form-group">
+          <label for="harga">Total Harga:</label>
+          <input type="text" id="harga" name="harga" readonly placeholder="Rp 0">
+        </div>
+        <div class="form-group">
+          <button type="submit" class="cta-button">Pesan Lapangan</button>
+        </div>
+      </form>
+    </section>
+  </main>
+  <footer>
+    <p>&copy; 2024 Padang Sport Center - Thoriq Abdillah & Syifa Lazuardi Akbar</p>
+  </footer>
+</body>
+</html>
